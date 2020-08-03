@@ -4,7 +4,7 @@ export default class NoticeController {
     constructor() {
         this.noticeModel = new NoticeModel()
     }
-    sendJSONToView() {
-        this.noticeModel.getJSON()
+    sendJSONToView(callback) {
+        this.noticeModel.getJSON(callback)
     }
 }

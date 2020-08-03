@@ -1,10 +1,11 @@
 import Api from '../data/api.js'
 
 export default class NoticeModel {
-    getJSON () {
+    getJSON (callback) {
         var api = new Api()
-        api.init((callback) =>{
-            console.log(callback)
+        api.init((response) =>{
+            var res = response
+            callback(res)
         })
     }
 }
