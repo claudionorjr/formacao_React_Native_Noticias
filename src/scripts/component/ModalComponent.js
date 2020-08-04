@@ -54,6 +54,6 @@ export default class ModalComponent {
     close() {
         new BSN.Modal(this.modal, {
             backdrop: 'static'
-          }).close()
+          }).hide()
     }
 }
