@@ -6,7 +6,8 @@ export default class NoticeViewController {
 
     constructor() {
         this.noticeController = new NoticeController()
-        this.getAllNotices((callback) => this.addAllNotices(callback))
+        this.getAllNoticies((list) => this.addAllNotices(list.articles))
+        this.setFavoritiesInDisplay()
     }
 
 
@@ -16,15 +17,36 @@ export default class NoticeViewController {
     }
 
 
-    getAllNotices(callback) {
+    setFavoritiesInDisplay() {
+        const btnFavorites = document.getElementById('btnFavorites')
+        const btnHome = document.getElementById('btnHome')
+        btnFavorites.addEventListener('click', () =>{
+            var cardsArea = this.setCardsArea()
+            cardsArea.innerHTML = ""
+            this.getAllNoticiesInDB((list) => this.addAllNotices(list))
+        })
+
+    }
+
+
+    getAllNoticiesInDB(callback) {
+        this.noticeController.getAllFavoritiesNoticies(callback)
+    }
+
+
+    getAllNoticies(callback) {
         this.noticeController.sendJSONToView(callback)
     }
 
 
-    addAllNotices(callback) {
-        var array = callback.articles
+    addAllNotices(list) {
+        var array = list
         array.forEach(e => {
-            this.addNotice(e['content'], e['description'], e['publishedAt'], e['source']['name'], e['title'], e['urlToImage'])
+            if(e['source'] != undefined){
+                this.addNotice(e['content'], e['description'], e['publishedAt'], e['source']['name'], e['title'], e['urlToImage'])
+            } else {
+                this.addNotice(e['content'], e['description'], e['publishedAt'], e['name'], e['title'], e['urlToImage'])
+            }
         })
     }
 

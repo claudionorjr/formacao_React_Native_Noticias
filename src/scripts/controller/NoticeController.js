@@ -14,4 +14,9 @@ export default class NoticeController {
     sendJSONToView(callback) {
         this.noticeModel.getJSON(callback)
     }
+
+
+    getAllFavoritiesNoticies(callback) {
+        this.noticeModel.getAll(callback)
+    }
 }

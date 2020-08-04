@@ -21,6 +21,18 @@ export default class NoticeModel {
     }
 
 
+    getAll(callback) {
+        var database = new Database()
+        database.open((db) => {
+            var transaction = db.transaction('noticesDB', "readonly")
+            var store = transaction.objectStore('noticesDB')
+            var request = store.getAll()
+            request.onsuccess = () => callback(request.result)
+            request.onerror = () => console.log(`Error in get All Tasks!`)
+        })
+    }
+
+
     create(){
         var database = new Database()
         database.open((db) => {
@@ -30,7 +42,7 @@ export default class NoticeModel {
                 publishedAt: this.publishedAt, name: this.name, title: this.title,
                 urlToImage: this.urlToImage
             })
-            add.onsuccess = () => console.log("ok")
+            add.onsuccess = () => {}
             add.onerror = () => console.log(`Error To Save: You can't repeat notices in DataBase!`)
         })
     }
