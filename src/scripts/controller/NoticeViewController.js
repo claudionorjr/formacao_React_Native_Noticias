@@ -5,8 +5,8 @@ import CardComponent from '../component/CardComponent.js'
 export default class NoticeViewController {
 
     constructor() {
-        //this.noticeController = new NoticeController()
-        //this.getAllNotices((callback) => this.addAllNotices(callback))
+        this.noticeController = new NoticeController()
+        this.getAllNotices((callback) => this.addAllNotices(callback))
     }
 
 
@@ -32,7 +32,7 @@ export default class NoticeViewController {
     addNotice(content, description, publishedAt, name, title, urlToImage) {
         let newPosition = this.setCardsArea()
         
-        let cardComponent = new CardComponent(title, description, urlToImage, publishedAt, name)
+        let cardComponent = new CardComponent(content, title, description, urlToImage, publishedAt, name)
         newPosition.append(cardComponent.col)
     }
 

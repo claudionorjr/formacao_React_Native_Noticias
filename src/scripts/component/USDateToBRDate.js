@@ -1,8 +1,8 @@
 export default class USDateToBRDate {
     constructor(value) {
-        var day  = value.split("-")[2]
-        var month  = value.split("-")[1]
-        var year  = value.split("-")[0]
-        this.date = day + '-' + month + '-' + year
+        var needFormat = value
+        var formating = needFormat.substring(0,needFormat.indexOf("T"))
+        var dateFormated = formating.split('-')
+        this.date = dateFormated[2]+"-"+dateFormated[1]+"-"+dateFormated[0]
     }
 }
