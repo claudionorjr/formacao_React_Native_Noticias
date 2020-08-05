@@ -15,7 +15,9 @@ export default class Api {
      * @param {Array} callback 
      */
     init(callback) {
-        var url = 'http://newsapi.org/v2/top-headlines?'+'country=br&'+'apiKey=06e42da03f0044469b0ea3844b845745'
+        let all = 'everything'
+        let top = 'top-headlines'
+        var url = `http://newsapi.org/v2/${top}?country=br&apiKey=06e42da03f0044469b0ea3844b845745`
         var req = new Request(url)
         fetch(req)
             .then((response) => {

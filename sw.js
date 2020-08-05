@@ -1,16 +1,7 @@
-var cacheName = 'notices-pwa'
+var cacheName = 'noticespwa'
 var filesToCache = [
   '/',
   '/index.html',
-  '/src/scripts/index.js',
-  '/src/scripts/component/CardComponent.js',
-  '/src/scripts/component/ModalComponent.js',
-  '/src/scripts/component/USDateToBRDate.js',
-  '/src/scripts/controller/NoticeViewController.js',
-  '/src/scripts/controller/NoticeController.js',
-  '/src/scripts/controller/data/api.js',
-  '/src/scripts/controller/data/db.js',
-  '/src/scripts/controller/model/NoticeModel.js',
   '/src/scripts/statics/css/bootstrap.css',
   '/src/scripts/statics/css/bootstrap-grid.css',
   '/src/scripts/statics/css/bootstrap-grid.css.map',
@@ -40,7 +31,18 @@ var filesToCache = [
   '/src/scripts/statics/js/bootstrap.min.js',
   '/src/scripts/statics/js/bootstrap.min.js.map',
   '/src/scripts/statics/native-bootstrap/bootstrap-native.min.js',
+  '/src/scripts/index.js',
+  '/src/scripts/component/CardComponent.js',
+  '/src/scripts/component/CardToFavoriteComponent.js',
+  '/src/scripts/component/ModalComponent.js',
+  '/src/scripts/component/USDateToBRDate.js',
+  '/src/scripts/controller/NoticeViewController.js',
+  '/src/scripts/controller/NoticeController.js',
+  '/src/scripts/controller/data/api.js',
+  '/src/scripts/controller/data/db.js',
+  '/src/scripts/controller/model/NoticeModel.js'
 ]
+
 
 /**
  * Descrição: Vai inciar um Worker, abrir um cache e adicionar os arquivos em cache.

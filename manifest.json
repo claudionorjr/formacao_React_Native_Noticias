@@ -1,12 +1,12 @@
 {
-    "name": "Notices PWA",
-    "short_name": "Notices",
+    "name": "notices pwa",
+    "short_name": "notices",
     "icons": [{
         "src": "src/images/hello-icon-128.png",
           "sizes": "128x128",
           "type": "image/png"
         }, {
-          "src": "src/images/code7-icon-144.png",
+          "src": "src/images/hello-icon-144.png",
           "sizes": "144x144",
           "type": "image/png"
         }, {
