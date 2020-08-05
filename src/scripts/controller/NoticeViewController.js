@@ -78,7 +78,7 @@ export default class NoticeViewController {
         var array = list
         array.forEach(e => {
             if(e['source'] != undefined){
-                if (e['urlToImage'] == null || e['urlToImage'] == undefined) e['urlToImage'] = "src/images/error-404-1429x750.png"
+                if (e['urlToImage'] == null) e['urlToImage'] = "src/images/error-404-1429x750.png"
                 this.addNotice(e['content'], e['description'], e['publishedAt'], e['source']['name'], e['title'], e['urlToImage'])
             } else {
                 this.addFavoriteNotice(e['content'], e['description'], e['publishedAt'], e['name'], e['title'], e['urlToImage'])
