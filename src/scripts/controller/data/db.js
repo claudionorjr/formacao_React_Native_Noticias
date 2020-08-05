@@ -1,5 +1,19 @@
+/**
+ * class Database
+ * 
+ * Descrição: Classe modelo para um objeto 'IndexedDB'!
+ * 
+ * @version 1.0.0
+ * @author Claudionor Junior <claudionor.junior1994@gmail.com>
+ */
 export default class Database {
 
+    /**
+     * Descrição: Método retorna por callback um objeto 'indexedDB'.
+     * 
+     * @param {IndexedDB} callback 
+     * 
+     */
     open(callback) {
         this.db
         this.request = window.indexedDB.open("noticesDB", 1)

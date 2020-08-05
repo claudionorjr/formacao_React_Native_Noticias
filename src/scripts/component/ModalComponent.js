@@ -1,7 +1,17 @@
+/**
+ * Descrição: Constroi um ModalComponent!
+ * OBS: Precisa de bootstrap 4 para renderizar o Modal!
+ * 
+ * @param {String} h5Value
+ * @param {String} content
+ * 
+ * @returns {HTMLDivElement} this.modal //modal é acessado para instanciar um novo modal
+ * @version 1.0.0
+ * @author Claudionor Junior <claudionor.junior1994@gmail.com>
+ */
 export default class ModalComponent {
     constructor(content, h5Value) {
 
-        //Cria os elementos que serão utilizados no Modal
         const h5 = document.createElement('h5')
         const modalHeader = document.createElement('div')
         const modalBody = document.createElement('div')
@@ -12,7 +22,6 @@ export default class ModalComponent {
         const ModalDialog = document.createElement('div')
         this.modal = document.createElement('div')
 
-        //Organiza os elementos e adiciona em ordem
         modalHeader.append(h5)
         modalBody.append(p)
         modalFooter.append(btnClose)
@@ -22,7 +31,6 @@ export default class ModalComponent {
         ModalDialog.append(modalContent)
         this.modal.append(ModalDialog)
 
-        //Cada elemento recebe suas classes, estilos e seus valores
         h5.classList.add("modal-title")
         h5.innerHTML = h5Value
         p.innerHTML = content

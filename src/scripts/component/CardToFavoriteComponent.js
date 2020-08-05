@@ -4,7 +4,7 @@ import NoticeController from '../controller/NoticeController.js'
 
 
 /**
- * Descrição: Constroi um card component!
+ * Descrição: Constroi um cards favorities component!
  * OBS: Precisa de bootstrap 4 para renderizar o card!
  * 
  * @param {String} h5Value
@@ -17,10 +17,11 @@ import NoticeController from '../controller/NoticeController.js'
  * @version 1.0.0
  * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  */
-export default class CardComponent {
+export default class CardToFavoriteComponent {
 
     constructor(content, h5Value, pValue, imgValue, publishedAt, name) {
 
+        //Cria os elementos que serão utilizados no card
         const h5 = document.createElement('h5')
         const p = document.createElement('p')
         const createdAt = document.createElement('p')
@@ -67,17 +68,18 @@ export default class CardComponent {
         cardBody.classList.add("card-body")
         cardFooter.classList.add("card-footer")
 
-        btnFavorite.innerHTML = "Ler Depois <i class='fa fa-star-o'></i>"
+        btnFavorite.innerHTML = "Remover Favorito <i class='fa fa-trash'></i>"
+        btnFavorite.style.color = "red"
         btnFavorite.classList.add("btn")
         btnFavorite.classList.add("btn-light")
         btnFavorite.classList.add("btn-sm")
         btnFavorite.classList.add("ml-2")
         btnFavorite.classList.add("mb-1")
         btnFavorite.addEventListener('click', () => {
-            btnFavorite.innerHTML = "Favorita <i class='fa fa-check-circle-o'></i>"
-            btnFavorite.style.color = "green"
-            const noticeController = new NoticeController(content, pValue, publishedAt, name, h5Value, imgValue)
-            noticeController.sendNoticeToModel()
+            btnFavorite.innerHTML = "Removida <i class='fa fa-check-circle-o'></i>"
+            btnFavorite.style.color = "red"
+            const noticeController = new NoticeController()
+            noticeController.deleteNotice(h5Value)
         })
 
         img.classList.add("card-img-top")
