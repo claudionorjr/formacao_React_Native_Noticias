@@ -1,5 +1,6 @@
 import Api from '../data/api.js'
 import Database from '../data/db.js'
+import { EndPoint } from './endPoint.js';
 
 
 /**
@@ -13,27 +14,29 @@ import Database from '../data/db.js'
  * @see https://www.fabricadecodigo.com/usando-indexeddb-em-apps-web/ //caso de dúvidas com os métodos.
  */
 export default class NoticeModel {
-    constructor(content, description, publishedAt, name, title, urlToImage) {
-        this.content = content
-        this.description = description
-        this.publishedAt = publishedAt
-        this.name = name
-        this.title = title
-        this.urlToImage = urlToImage
+    constructor(news) {
+        if (!news === undefined){
+            this.content = news.getContent();
+            this.description = news.getDescription();
+            this.publishedAt = news.getPublishedAt();
+            this.name = news.getSource();
+            this.title = news.getTitle();
+            this.urlToImage = news.getUrlImage();
+        }
+        
     }
 
 
     /**
      * Descrição: Busca na API todas as 20 ultimas notícias do Brasil.
      * 
-     * @param {Array} callback 
+     * @param {EndPoint} callback 
      */
-    getJSON (callback) {
+    async getJSON(endpoint) {
         var api = new Api()
-        api.init((response) =>{
-            var res = response
-            callback(res)
-        })
+        let response = await api.init(endpoint);
+        const data = await response.json();
+        return data;
     }
 
 
@@ -41,30 +44,34 @@ export default class NoticeModel {
      * Descrição: Busca no indexedDB todos os objetos favoritados pelos usuários.
      * 
      * @param {Array} callback 
+     * @see NoticeController.getAllFavoritiesNoticies()
      */
-    getAll(callback) {
-        var database = new Database()
-        database.open((db) => {
-            var transaction = db.transaction('noticesDB', "readonly")
-            var store = transaction.objectStore('noticesDB')
-            var request = store.getAll()
-            request.onsuccess = () => callback(request.result)
-            request.onerror = () => console.log(`Error in get All Tasks!`)
+    getAll() {
+        return new Promise((resolve, reject) => {
+            var database = new Database()
+            database.open((db) => {
+                var transaction = db.transaction('noticesDB', "readonly")
+                var store = transaction.objectStore('noticesDB')
+                var request = store.getAll()
+                request.onsuccess = () => resolve(request.result)
+                request.onerror = () => console.log(`Error in get All Tasks!`)
+            })
         })
+        
     }
 
 
     /**
      * Descrição: Cria no indexedDB um notícia favoritada pelo usuário.
      */
-    create(){
+    create(news){
         var database = new Database()
         database.open((db) => {
             var transaction = db.transaction('noticesDB', "readwrite")
             var store = transaction.objectStore('noticesDB')
-            var add = store.add({content: this.content, description: this.description,
-                publishedAt: this.publishedAt, name: this.name, title: this.title,
-                urlToImage: this.urlToImage
+            var add = store.add({content: news.getContent(), description: news.getDescription(),
+                publishedAt: news.getPublishedAt(), name: news.getSource(), title: news.getTitle(),
+                urlToImage: getUrlImage()
             })
             add.onsuccess = () => {}
             add.onerror = () => {}

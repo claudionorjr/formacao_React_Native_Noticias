@@ -1,6 +1,8 @@
 import NoticeController from './NoticeController.js'
 import CardComponent from '../component/CardComponent.js'
 import CardToFavoriteComponent from '../component/CardToFavoriteComponent.js'
+import { EndPoint } from './model/endPoint.js'
+import { News } from './model/NewsModel.js'
 
 
 /**
@@ -14,8 +16,8 @@ import CardToFavoriteComponent from '../component/CardToFavoriteComponent.js'
 export default class NoticeViewController {
     constructor() {
         this.noticeController = new NoticeController()
-        this.getAllNoticies((list) => this.addAllNotices(list.articles))
-        this.setFavoritiesInDisplay()
+        //this.addAllNotices();
+        //this.setFavoritiesInDisplay()
     }
 
 
@@ -35,14 +37,15 @@ export default class NoticeViewController {
         const btnFavorites = document.getElementById('btnFavorites')
         const btnHome = document.getElementById('btnHome')
         btnFavorites.addEventListener('click', () =>{
+            console.log("aqui")
             var cardsArea = this.setCardsArea()
             cardsArea.innerHTML = ""
-            this.getAllNoticiesInDB((list) => this.addAllNotices(list))
+            this.getAllNoticiesInDB()
         })
         btnHome.addEventListener('click', () =>{
             var cardsArea = this.setCardsArea()
             cardsArea.innerHTML = ""
-            this.getAllNoticies((list) => this.addAllNotices(list.articles))
+            this.addAllNotices();
         })
     }
 
@@ -52,8 +55,9 @@ export default class NoticeViewController {
      * 
      * @param {Array} callback 
      */
-    getAllNoticiesInDB(callback) {
-        this.noticeController.getAllFavoritiesNoticies(callback)
+    getAllNoticiesInDB() {
+        let data = this.noticeController.getAllFavoritiesNoticies();
+        return data;
     }
 
 
@@ -62,8 +66,9 @@ export default class NoticeViewController {
      * 
      * @param {Array} callback 
      */
-    getAllNoticies(callback) {
-        this.noticeController.sendJSONToView(callback)
+    getAllNoticies(endpoint) {
+        let data = this.noticeController.sendJSONToView(endpoint);
+        return data;
     }
 
 
@@ -72,14 +77,24 @@ export default class NoticeViewController {
      * 
      * @param {Array} list 
      */
-    addAllNotices(list) {
-        var array = list
+    async addAllNotices() {
+        let endpoint = new EndPoint();
+        let data =  await this.getAllNoticies(endpoint);
+        let array = data.articles
+        
+
         array.forEach(e => {
+            let news = new News();
+            news.setTitle(e['title']);
+            news.setSource(e['source']['name']);
+            news.setDescription(e['description']);
+            news.setContent(e['content']);
+            news.setPublishedAt(e['publishedAt']);
+            news.setUrlImage(e['urlToImage']);
             if(e['source'] != undefined){
-                if (e['urlToImage'] == null) e['urlToImage'] = "src/images/error-404-1429x750.png"
-                this.addNotice(e['content'], e['description'], e['publishedAt'], e['source']['name'], e['title'], e['urlToImage'])
+                this.addNotice(news);
             } else {
-                this.addFavoriteNotice(e['content'], e['description'], e['publishedAt'], e['name'], e['title'], e['urlToImage'])
+                this.addFavoriteNotice(news)
             }
         })
     }
@@ -88,18 +103,12 @@ export default class NoticeViewController {
     /**
      * Descrição: Método recebe os dados de um objeto e renderiza na tela um card
      * para cada noticia vindas da API.
-     * 
-     * @param {String} content 
-     * @param {String} description 
-     * @param {String} publishedAt 
-     * @param {String} name 
-     * @param {String} title 
-     * @param {String} urlToImage //URL da Imagen.
+     * @param {News} news
      */
-    addNotice(content, description, publishedAt, name, title, urlToImage) {
+    addNotice(news) {
         let newPosition = this.setCardsArea()
         
-        let cardComponent = new CardComponent(content, title, description, urlToImage, publishedAt, name)
+        let cardComponent = new CardComponent(news)
         newPosition.append(cardComponent.col)
     }
 
@@ -115,10 +124,10 @@ export default class NoticeViewController {
      * @param {String} title 
      * @param {String} urlToImage //URL da Imagen.
      */
-    addFavoriteNotice(content, description, publishedAt, name, title, urlToImage) {
+    addFavoriteNotice(news) {
         let newPosition = this.setCardsArea()
         
-        let cardComponent = new CardToFavoriteComponent(content, title, description, urlToImage, publishedAt, name)
+        let cardComponent = new CardToFavoriteComponent(news)
         newPosition.append(cardComponent.col)
     }
 

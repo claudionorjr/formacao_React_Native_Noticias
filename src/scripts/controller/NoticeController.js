@@ -10,8 +10,8 @@ import NoticeModel from './model/NoticeModel.js'
  * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  */
 export default class NoticeController {
-    constructor(content, description, publishedAt, name, title, urlToImage) {
-        this.noticeModel = new NoticeModel(content, description, publishedAt, name, title, urlToImage)
+    constructor(news) {
+        this.noticeModel = new NoticeModel(news)
     }
 
 
@@ -28,8 +28,9 @@ export default class NoticeController {
      * 
      * @param {Array} callback 
      */
-    sendJSONToView(callback) {
-        this.noticeModel.getJSON(callback)
+    sendJSONToView(endpoint) {
+       let data =  this.noticeModel.getJSON(endpoint);
+       return data;
     }
 
 
@@ -37,9 +38,12 @@ export default class NoticeController {
      * Descrição: Envia um array de notícias favoritas para o ViewController
      * 
      * @param {Array} callback 
+     * @see NoticeViewController.getAllNoticiesInDB()
      */
-    getAllFavoritiesNoticies(callback) {
-        this.noticeModel.getAll(callback)
+    async getAllFavoritiesNoticies() {
+        let response = await this.noticeModel.getAll()
+        console.log(response);
+        return response;
     }
 
 
