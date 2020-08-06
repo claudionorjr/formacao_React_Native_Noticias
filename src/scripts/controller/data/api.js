@@ -9,6 +9,8 @@
  * @see https://newsapi.org/docs
  */
 export default class Api {
+
+
     /**
      * Descrição: Acessa a API e retorna um Array de notícias.
      * 

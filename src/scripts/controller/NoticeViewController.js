@@ -3,7 +3,6 @@ import CardComponent from '../component/CardComponent.js'
 import CardToFavoriteComponent from '../component/CardToFavoriteComponent.js'
 
 
-
 /**
  * class NoticeViewController
  * 
@@ -45,7 +44,6 @@ export default class NoticeViewController {
             cardsArea.innerHTML = ""
             this.getAllNoticies((list) => this.addAllNotices(list.articles))
         })
-
     }
 
 

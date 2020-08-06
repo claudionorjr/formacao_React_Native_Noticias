@@ -2,16 +2,16 @@
  * Descrição: Constroi um ModalComponent!
  * OBS: Precisa de bootstrap 4 para renderizar o Modal!
  * 
+ * @version 1.0.0
+ * @author Claudionor Junior <claudionor.junior1994@gmail.com>
+ * 
  * @param {String} h5Value
  * @param {String} content
  * 
  * @returns {HTMLDivElement} this.modal //modal é acessado para instanciar um novo modal
- * @version 1.0.0
- * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  */
 export default class ModalComponent {
     constructor(content, h5Value) {
-
         const h5 = document.createElement('h5')
         const modalHeader = document.createElement('div')
         const modalBody = document.createElement('div')
@@ -53,12 +53,20 @@ export default class ModalComponent {
         document.body.append(this.modal)
     }
 
+
+    /**
+     * Descrição: Método para abrir o Modal
+     */
     open() {
         new BSN.Modal(this.modal, {
             backdrop: 'static'
           }).toggle()
     }
 
+
+    /**
+     * Descrição: Método para fechar o Modal
+     */
     close() {
         new BSN.Modal(this.modal, {
             backdrop: 'static'

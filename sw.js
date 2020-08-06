@@ -34,6 +34,7 @@ var filesToCache = [
 	'/src/statics/js/bootstrap.min.js.map',
 	'/src/statics/native-bootstrap/bootstrap-native.min.js',
 	'/src/scripts/index.js',
+	'/tests/testNotices.js',
 	'/src/scripts/component/CardComponent.js',
 	'/src/scripts/component/CardToFavoriteComponent.js',
 	'/src/scripts/component/ModalComponent.js',
@@ -56,6 +57,7 @@ self.addEventListener('install', (e) => {
 		})
 	)
 })
+
 
 /* Pegar os arquivos em cache e exibir quando estiver offline */
 self.addEventListener('fetch', (e) => {

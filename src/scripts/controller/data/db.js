@@ -8,6 +8,7 @@
  */
 export default class Database {
 
+
     /**
      * Descrição: Método retorna por callback um objeto 'indexedDB'.
      * 
@@ -18,7 +19,6 @@ export default class Database {
         this.db
         this.request = window.indexedDB.open("noticesDB", 1)
         this.request.onerror = (event) => console.log(`Error to Open DB: ${event}`)
-
 
         this.request.onupgradeneeded = (event) => {
             console.log("Creating...")
@@ -32,7 +32,6 @@ export default class Database {
             objectStore.createIndex("urlToImage", "urlToImage", { unique: false })
             console.log("New DataBase Created successfully.")
         }
-
 
         this.request.onsuccess  = (event) => {
             this.db = event.target.result

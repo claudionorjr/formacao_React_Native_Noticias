@@ -3,7 +3,6 @@ import NoticeViewController from '../src/scripts/controller/NoticeViewController
 import CardToFavoriteComponent from '../src/scripts/component/CardToFavoriteComponent.js'
 
 
-
 /**
  * class testing
  * 
@@ -20,12 +19,11 @@ import CardToFavoriteComponent from '../src/scripts/component/CardToFavoriteComp
  */
 class testing {
     constructor() {
-        //this.noticeController = new NoticeController()
         this.test1 = true
         this.test2 = true
         this.test3 = true
         this.test4 = true
-        this.testOn = true
+        this.testOn = false
         this.testInit()
     }
 
@@ -54,10 +52,10 @@ class testing {
                             noticeController.sendNoticeToModel()
                             console.log(`Salvando a Notícia ${i + 1} - Passou`)
                         } catch (error) {
-                            console.log('Erro para salvar no banco de dados')
+                            console.log(`Salvando a Notícia ${i + 1} - não Passou`)
                         }
                     } else {
-                        console.log('Criando o component - Não Passou')
+                        console.log(`Criando o component ${i + 1} - não Passou`)
                     }
                 })
                 console.log('---------------')
@@ -138,18 +136,16 @@ class testing {
                             noticeController.deleteNotice(e['title'])
                         })
                         console.log(`Deletando Nóticia - Passou`)
-                        console.log('---------------')
                     } else {
                         console.log(`Deletando Nóticia - Não Passou`)
-                        console.log('---------------')
                     }
                 })
             } catch (error) {
                 console.log('Erro: testToDelete()')
-                console.log('---------------')
             }
         }
     }
+
 
     /**
      * Descrição: Controlador de testes!
@@ -169,6 +165,8 @@ class testing {
                 console.log('Erro: testInit()')
                 console.log('---------------')
             }
+        } else {
+            console.log("Testes Offline")
         }
     }
 }
