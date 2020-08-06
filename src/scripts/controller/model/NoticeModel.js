@@ -67,7 +67,7 @@ export default class NoticeModel {
                 urlToImage: this.urlToImage
             })
             add.onsuccess = () => {}
-            add.onerror = () => console.log(`Error To Save: You can't repeat notices in DataBase!`)
+            add.onerror = () => {}
         })
     }
 
