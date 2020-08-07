@@ -43,7 +43,9 @@ var filesToCache = [
 	'/src/scripts/controller/NoticeController.js',
 	'/src/scripts/controller/data/db.js',
 	'/src/scripts/controller/data/api.js',
-	'/src/scripts/controller/model/NoticeModel.js'
+	'/src/scripts/controller/model/NoticeModel.js',
+	'/src/scripts/controller/model/NewsModel.js',
+	'/src/scripts/controller/model/endPoint.js'
 ]
 
 

@@ -19,7 +19,7 @@ import NoticeController from '../controller/NoticeController.js'
  * @returns {HTMLDivElement} this.col //col é acessado para instanciar um novo card
  */
 export default class CardToFavoriteComponent {
-    constructor(content, h5Value, pValue, imgValue, publishedAt, name) {
+    constructor(news) {
         const h5 = document.createElement('h5')
         const p = document.createElement('p')
         const createdAt = document.createElement('p')
@@ -44,12 +44,12 @@ export default class CardToFavoriteComponent {
         this.col.append(card)
 
         h5.classList.add("card-title")
-        h5.innerHTML = h5Value
+        h5.innerHTML = news.getTitle()
         p.classList.add("card-text")
-        p.innerHTML = pValue
+        p.innerHTML = news.getDescription();
 
-        createdAt.innerHTML = `<small class="text-muted">Fonte: ${name}</small>`
-        let uSDateToBRDate = new USDateToBRDate(publishedAt)
+        createdAt.innerHTML = `<small class="text-muted">Fonte: ${news.getSource()}</small>`
+        let uSDateToBRDate = new USDateToBRDate(news.getPublishedAt())
         publishedBy.innerHTML = `<small class="text-muted">Publicação: ${uSDateToBRDate.date}</small>`
 
         btnOpen.type = "button"
@@ -60,7 +60,7 @@ export default class CardToFavoriteComponent {
         btnOpen.classList.add("ml-2")
         btnOpen.classList.add("mb-1")
         btnOpen.addEventListener('click', () => {
-            var modalComponent = new ModalComponent(content, h5Value)
+            var modalComponent = new ModalComponent(news)
             modalComponent.open()
         })
         cardBody.classList.add("card-body")
@@ -77,11 +77,11 @@ export default class CardToFavoriteComponent {
             btnFavorite.innerHTML = "Removida <i class='fa fa-check-circle-o'></i>"
             btnFavorite.style.color = "red"
             const noticeController = new NoticeController()
-            noticeController.deleteNotice(h5Value)
+            noticeController.deleteNotice(news.getTitle())
         })
 
         img.classList.add("card-img-top")
-        img.src = imgValue
+        img.src = news.getUrlImage();
         img.style.maxHeight = "200px"
         img.style.width = "auto"
 

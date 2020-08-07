@@ -1,3 +1,5 @@
+import { EndPoint } from "../model/endPoint.js";
+
 /**
  * class Api
  * 
@@ -10,23 +12,18 @@
  */
 export default class Api {
 
-
+    baseURL = 'https://newsapi.org/v2/';
+    apiKey = "06e42da03f0044469b0ea3844b845745";
+    /** */
     /**
      * Descrição: Acessa a API e retorna um Array de notícias.
      * 
-     * @param {Array} callback 
+     * @param {EndPoint} endpoint
+     * @see NoticeModel.getJson()
      */
-    init(callback) {
-        let all = 'everything'
-        let top = 'top-headlines'
-        var url = `http://newsapi.org/v2/${top}?country=br&apiKey=06e42da03f0044469b0ea3844b845745`
-        var req = new Request(url)
-        fetch(req)
-            .then((response) => {
-                return response.json()
-            })
-            .then((json) => {
-                callback(json)
-            })
+    init(endpoint) {
+        let url = `${this.baseURL}${endpoint.getFunction()}?${endpoint.getQuery()}&apikey=${this.apiKey}`;
+        return fetch(url);
     }
+
 }

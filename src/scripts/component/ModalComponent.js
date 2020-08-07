@@ -11,7 +11,7 @@
  * @returns {HTMLDivElement} this.modal //modal é acessado para instanciar um novo modal
  */
 export default class ModalComponent {
-    constructor(content, h5Value) {
+    constructor(news) {
         const h5 = document.createElement('h5')
         const modalHeader = document.createElement('div')
         const modalBody = document.createElement('div')
@@ -32,8 +32,8 @@ export default class ModalComponent {
         this.modal.append(ModalDialog)
 
         h5.classList.add("modal-title")
-        h5.innerHTML = h5Value
-        p.innerHTML = content
+        h5.innerHTML = news.getTitle()
+        p.innerHTML = news.getContent()
         modalHeader.classList.add("modal-header")
         modalBody.classList.add("modal-body")
         modalFooter.classList.add("modal-footer")
