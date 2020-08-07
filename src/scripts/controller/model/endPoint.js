@@ -1,8 +1,14 @@
+/**
+ * Classe serve como modelo para a consulta na API
+ * 
+ * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
+ * @since 1.0.0
+ */
 export class EndPoint{
 
     constructor(){
         this.functionEndPoint = 'top-headlines';
-        this.country = 'br';
+        this.country;
         this.query = 'country=';
     }
 
@@ -25,6 +31,8 @@ export class EndPoint{
     getQuery(){
         if(this.functionEndPoint === "top-headlines"){
             return this.query + this.country;
+        }else{
+            return this.query
         }
         
     }

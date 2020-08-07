@@ -14,23 +14,11 @@ import { EndPoint } from './endPoint.js';
  * @see https://www.fabricadecodigo.com/usando-indexeddb-em-apps-web/ //caso de dúvidas com os métodos.
  */
 export default class NoticeModel {
-    constructor(news) {
-        if (!news === undefined){
-            this.content = news.getContent();
-            this.description = news.getDescription();
-            this.publishedAt = news.getPublishedAt();
-            this.name = news.getSource();
-            this.title = news.getTitle();
-            this.urlToImage = news.getUrlImage();
-        }
-        
-    }
-
-
+ 
     /**
      * Descrição: Busca na API todas as 20 ultimas notícias do Brasil.
      * 
-     * @param {EndPoint} callback 
+     * @param {EndPoint} endpoint 
      */
     async getJSON(endpoint) {
         var api = new Api()
@@ -43,7 +31,6 @@ export default class NoticeModel {
     /**
      * Descrição: Busca no indexedDB todos os objetos favoritados pelos usuários.
      * 
-     * @param {Array} callback 
      * @see NoticeController.getAllFavoritiesNoticies()
      */
     getAll() {
@@ -63,6 +50,7 @@ export default class NoticeModel {
 
     /**
      * Descrição: Cria no indexedDB um notícia favoritada pelo usuário.
+     * @param {News} news - Class Modelo de noticias
      */
     create(news){
         var database = new Database()
@@ -71,7 +59,7 @@ export default class NoticeModel {
             var store = transaction.objectStore('noticesDB')
             var add = store.add({content: news.getContent(), description: news.getDescription(),
                 publishedAt: news.getPublishedAt(), name: news.getSource(), title: news.getTitle(),
-                urlToImage: getUrlImage()
+                urlToImage: news.getUrlImage()
             })
             add.onsuccess = () => {}
             add.onerror = () => {}

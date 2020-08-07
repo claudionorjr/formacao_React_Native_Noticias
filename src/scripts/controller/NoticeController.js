@@ -18,8 +18,8 @@ export default class NoticeController {
     /**
      * Descrição: Executa o método create do model.
      */
-    sendNoticeToModel() {
-        this.noticeModel.create()
+    sendNoticeToModel(news) {
+        this.noticeModel.create(news)
     }
 
 
@@ -42,7 +42,6 @@ export default class NoticeController {
      */
     async getAllFavoritiesNoticies() {
         let response = await this.noticeModel.getAll()
-        console.log(response);
         return response;
     }
 

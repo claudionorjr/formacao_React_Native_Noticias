@@ -16,8 +16,11 @@ import { News } from './model/NewsModel.js'
 export default class NoticeViewController {
     constructor() {
         this.noticeController = new NoticeController()
-        //this.addAllNotices();
-        //this.setFavoritiesInDisplay()
+        this.endpoint = new EndPoint();
+        this.endpoint.setCountry("br");
+        this.addAllNotices(this.endpoint);
+        this.setFavoritiesInDisplay()
+        this.selected;
     }
 
 
@@ -35,25 +38,128 @@ export default class NoticeViewController {
      */
     setFavoritiesInDisplay() {
         const btnFavorites = document.getElementById('btnFavorites')
-        const btnHome = document.getElementById('btnHome')
+        const btnHome = document.getElementById('btnHome');
+        const form = document.getElementById("form-search");
+        const select = document.getElementById("select-news");
+        
         btnFavorites.addEventListener('click', () =>{
             console.log("aqui")
             var cardsArea = this.setCardsArea()
             cardsArea.innerHTML = ""
-            this.getAllNoticiesInDB()
+            form.style.display = "none";
+            console.log("ola")
+            this.addAllFovoretiNews()
         })
         btnHome.addEventListener('click', () =>{
+            form.style.display = "inline";
             var cardsArea = this.setCardsArea()
             cardsArea.innerHTML = ""
-            this.addAllNotices();
+            this.addAllNotices(this.endpoint);
         })
+
+        select.addEventListener('change', this.clickSelected)
+        form.addEventListener('submit', el => {
+            this.clickSubmit();
+        });
+    }
+    
+    /**
+     * Descrição: Função de click do submit em relação ao formulario de pesquisa
+     */
+    clickSubmit(){
+        let select = document.getElementById("select-news");
+        let option = select.options[select.selectedIndex];
+        let selected = option.value
+        console.log(option.value);
+        switch(selected){
+            case 'top-headlines':
+                this.searchTopHeadLines();
+                break;
+            case 'everything':
+                this.searchEveryThing(selected);
+                break;
+            case 'country':
+                this.searchCountry();
+                console.log(selected);
+                break;
+        }
     }
 
 
     /**
+     * Descrição: Espera a mudançã de seleção da tag <select>,
+     * faz a manipulação do html;
+     * 
+     * @param {Event} e - Passa como paramentro o evento
+     */
+    clickSelected(e){
+        let divSearch = document.getElementById("search");
+        let divCountries = document.getElementById("div-countries");
+        
+        let select  = e.target;
+        let option = select.options[select.selectedIndex];
+        let selected = option.value;
+        console.log(selected)
+        if (selected === "everything"){
+            divSearch.style.display = "inline";
+            divCountries.style.display = "none";
+        }else if(selected === "country"){
+            divCountries.style.display = "inline";
+            divSearch.style.display = "none";
+        }else if(selected === "top-headlines"){
+            divCountries.style.display = "none";
+            divSearch.style.display = "none";
+        }
+    }
+
+    /**
+     * Descrição: Procura todos os dados no top-headlines.
+     * Por padrao pega as noticias do Brasil
+     * @see EndPoint
+     */
+    searchTopHeadLines(){
+        var cardsArea = this.setCardsArea()
+        cardsArea.innerHTML = ""
+        this.addAllNotices(this.endpoint);
+    }
+
+    /**
+     * Descrição: Procura pela função everything e a cunsulta personalizada, 
+     * passada no campo input
+     * 
+     * @param {String} selected 
+     * @see EndPoint
+     */
+    searchEveryThing(selected){
+        let inputSearch = document.getElementById("input-search")
+    
+        var cardsArea = this.setCardsArea();
+        cardsArea.innerHTML = ""
+        let endpoint = new EndPoint();
+        endpoint.setFuntion(selected);
+        endpoint.setQuery('q='+inputSearch.value)
+        this.addAllNotices(endpoint);
+    }
+
+    /**
+     * Descrição: Procuro as noticias conforme o pais selecionado
+     * @see EndPoint
+     */
+    searchCountry(){
+        let countriesSelect = document.getElementById("select-countries");
+        let option = countriesSelect.options[countriesSelect.selectedIndex];
+        let selected = option.value;
+
+        var cardsArea = this.setCardsArea();
+        cardsArea.innerHTML = ""
+        let endpoint = new EndPoint();
+        endpoint.setCountry(selected)
+        endpoint.setQuery('country=');
+        this.addAllNotices(endpoint);
+    }
+    /**
      * Descrição: método recebe um Array de notícias favoritas.
      * 
-     * @param {Array} callback 
      */
     getAllNoticiesInDB() {
         let data = this.noticeController.getAllFavoritiesNoticies();
@@ -61,10 +167,12 @@ export default class NoticeViewController {
     }
 
 
+
     /**
      * Descrição: método recebe um Array de notícias vindas de uma API.
      * 
-     * @param {Array} callback 
+     * @param {EndPoint} endpoint
+     * @see EndPoint 
      */
     getAllNoticies(endpoint) {
         let data = this.noticeController.sendJSONToView(endpoint);
@@ -75,14 +183,12 @@ export default class NoticeViewController {
     /**
      * Descrição: Método envia cada objeto de um Array para serem renderizadas.
      * 
-     * @param {Array} list 
      */
-    async addAllNotices() {
-        let endpoint = new EndPoint();
-        let data =  await this.getAllNoticies(endpoint);
+    async addAllNotices(endPoint) {
+    
+        let data =  await this.getAllNoticies(endPoint);
         let array = data.articles
         
-
         array.forEach(e => {
             let news = new News();
             news.setTitle(e['title']);
@@ -91,11 +197,7 @@ export default class NoticeViewController {
             news.setContent(e['content']);
             news.setPublishedAt(e['publishedAt']);
             news.setUrlImage(e['urlToImage']);
-            if(e['source'] != undefined){
-                this.addNotice(news);
-            } else {
-                this.addFavoriteNotice(news)
-            }
+            this.addNotice(news);
         })
     }
 
@@ -112,17 +214,29 @@ export default class NoticeViewController {
         newPosition.append(cardComponent.col)
     }
 
+    /**
+     * Descrição: adiciona na pagina html as noticias que estao salvas no banco de dados
+     */
+    async addAllFovoretiNews(){
+        let data = await this.getAllNoticiesInDB();
+        console.log(data);
+        data.forEach(e => {
+            let news = new News();
+            news.setTitle(e['title']);
+            news.setSource(e['source']);
+            news.setDescription(e['description']);
+            news.setContent(e['content']);
+            news.setPublishedAt(e['publishedAt']);
+            news.setUrlImage(e['urlToImage']);
+            this.addFavoriteNotice(news);
+        })
+    }
 
     /**
      * Descrição: Método recebe os dados de um objeto e renderiza na tela um card
      * para cada noticia favorita vindas do 'indexedDB'.
      * 
-     * @param {String} content 
-     * @param {String} description 
-     * @param {String} publishedAt 
-     * @param {String} name 
-     * @param {String} title 
-     * @param {String} urlToImage //URL da Imagen.
+     * @param {News} news
      */
     addFavoriteNotice(news) {
         let newPosition = this.setCardsArea()
@@ -131,13 +245,4 @@ export default class NoticeViewController {
         newPosition.append(cardComponent.col)
     }
 
-
-    /**
-     * Descrição: Método para iniciar o sistema.
-     * 
-     * @returns {Object} NoticeViewController
-     */
-    init() {
-        return this
-    }
 }

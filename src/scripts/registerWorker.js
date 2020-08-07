@@ -1,4 +1,4 @@
-/* window.onload = () => {
+window.onload = () => {
     'use strict'
   
     if ('serviceWorker' in navigator) {
@@ -6,4 +6,3 @@
                .register('./sw.js')
     }
 }
- */

@@ -60,7 +60,7 @@ export default class CardComponent {
         btnOpen.classList.add("ml-2")
         btnOpen.classList.add("mb-1")
         btnOpen.addEventListener('click', () => {
-            var modalComponent = new ModalComponent(news.getContent(), h5Value)
+            var modalComponent = new ModalComponent(news)
             modalComponent.open()
         })
         cardBody.classList.add("card-body")
@@ -76,7 +76,7 @@ export default class CardComponent {
             btnFavorite.innerHTML = "Favorita <i class='fa fa-check-circle-o'></i>"
             btnFavorite.style.color = "green"
             const noticeController = new NoticeController(news)
-            noticeController.sendNoticeToModel()
+            noticeController.sendNoticeToModel(news)
         })
 
         img.classList.add("card-img-top")

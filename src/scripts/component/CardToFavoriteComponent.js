@@ -60,7 +60,7 @@ export default class CardToFavoriteComponent {
         btnOpen.classList.add("ml-2")
         btnOpen.classList.add("mb-1")
         btnOpen.addEventListener('click', () => {
-            var modalComponent = new ModalComponent(news.getContent(), news.getTitle())
+            var modalComponent = new ModalComponent(news)
             modalComponent.open()
         })
         cardBody.classList.add("card-body")
