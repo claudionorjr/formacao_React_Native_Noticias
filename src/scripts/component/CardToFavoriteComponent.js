@@ -1,5 +1,5 @@
-import BtnFavorite from './BtnFavorite.js'
 import CardComponent from './CardComponent.js'
+import BtnFavorite from './BtnFavorite.js'
 
 
 /**
@@ -20,6 +20,7 @@ import CardComponent from './CardComponent.js'
 export default class CardToFavoriteComponent extends CardComponent {
     constructor(news) {
         super(news)
-        this.btnFavorite = this.classBtnFavorite.initBtnToDelete()
+        this.btnFavorite = new BtnFavorite(news).initBtnToDelete()
+        ReactDOM.render(this.btnFavorite, this.btnContainer)
     }
 }

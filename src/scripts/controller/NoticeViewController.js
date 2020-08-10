@@ -217,7 +217,6 @@ export default class NoticeViewController {
      */
     async addAllFovoretiNews(){
         let data = await this.getAllNoticiesInDB();
-        console.log(data);
         data.forEach(e => {
             let news = new News();
             news.setTitle(e['title']);

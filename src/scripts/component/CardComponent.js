@@ -20,14 +20,13 @@ import BtnFavorite from './BtnFavorite.js'
  */
 export default class CardComponent {
     constructor(news) {
-        this.classBtnFavorite = new BtnFavorite(news)
         const h5 = document.createElement('h5')
         const p = document.createElement('p')
         const createdAt = document.createElement('p')
         const publishedBy = document.createElement('p')
         const cardBody = document.createElement('div')
         const cardFooter = document.createElement('div')
-        this.btnFavorite = this.classBtnFavorite.btn
+        this.btnContainer = document.createElement('div')
         const img = document.createElement('img')
         const card = document.createElement('div')
         const btnOpen = document.createElement('button')
@@ -38,7 +37,7 @@ export default class CardComponent {
         cardBody.append(createdAt)
         cardBody.append(publishedBy)
         cardFooter.append(btnOpen)
-        cardFooter.append(this.btnFavorite)
+        cardFooter.append(this.btnContainer)
         card.append(img)
         card.append(cardBody)
         card.append(cardFooter)
@@ -65,7 +64,8 @@ export default class CardComponent {
             modalComponent.open()
         })
 
-        this.btnFavorite = this.classBtnFavorite.initBtnToSave()
+        this.btnFavorite = new BtnFavorite(news).initBtnToSave()
+        ReactDOM.render(this.btnFavorite, this.btnContainer)
 
         cardBody.classList.add("card-body")
         cardFooter.classList.add("card-footer")
