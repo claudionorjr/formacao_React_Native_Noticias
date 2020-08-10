@@ -36,6 +36,7 @@ var filesToCache = [
 	'/src/scripts/index.js',
 	'/tests/testNotices.js',
 	'/src/scripts/component/CardComponent.js',
+	'/src/scripts/component/BtnFavorite.js',
 	'/src/scripts/component/CardToFavoriteComponent.js',
 	'/src/scripts/component/ModalComponent.js',
 	'/src/scripts/component/USDateToBRDate.js',
