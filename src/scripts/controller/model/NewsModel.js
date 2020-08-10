@@ -1,80 +1,162 @@
-/**Class model for News
+/**
+ * Class model for News
+ * 
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
- * @since 1.0.0
+ *
+ * @version 2
  */
-export class News{
-
-    constructor(){
-        this.source;
-        this.title;
-        this.url;
-        this.urlImage;
-        this.content;
-        this.publishedAt;
-        this.description;
+export class News {
+    constructor() {
+        this._source
+        this._title
+        this._url
+        this._urlImage
+        this._content
+        this._publishedAt
+        this._description
     }
 
-    setSource(source){
-        this.source = source;
+
+    /**
+     * Descrição: Método para setar this._source
+     * 
+     * @param {String} source 
+     */
+    setSource(source) {
+        this._source = source
     }
 
-    getSource(){
-        return this.source;
+
+    /**
+     * Descrição: Método para pegar this._source
+     * 
+     * @return {this._source}
+     */
+    getSource() {
+        return this._source
     }
 
-    setTitle(title){
-        this.title = title;
+
+    /**
+     * Descrição: Método para setar this._title
+     * 
+     * @param {String} title 
+     */
+    setTitle(title) {
+        this._title = title
     }
 
-    getTitle(){
-        return this.title;
+
+    /**
+     * Descrição: Método para pegar this._title
+     * 
+     * @return {this._title}
+     */
+    getTitle() {
+        return this._title
     }
 
-    setUrl(url){
-        this.url = url;
+
+    /**
+     * Descrição: Método para setar this._url
+     * 
+     * @param {Path} url 
+     */
+    setUrl(url) {
+        this._url = url
     }
 
-    getUrl(){
-        return this.url;
+
+    /**
+     * Descrição: Método para pegar this._url
+     * 
+     * @return {this._url}
+     */
+    getUrl() {
+        return this._url
     }
 
-    setUrlImage(urlImage){
-        if(urlImage === null){
-            this.urlImage = "src/images/error-404-1429x750.png";
-        }else{
-            this.urlImage = urlImage;
+
+    /**
+     * Descrição: Método para setar this._urlImage
+     * 
+     * @param {Path} urlImage 
+     */
+    setUrlImage(urlImage) {
+        if (urlImage === null) {
+            this._urlImage = "src/images/error-404-1429x750.png"
+        } else {
+            this._urlImage = urlImage
         }
     }
 
-    getUrlImage(){
-        return this.urlImage;
-    }
-
-    setContent(content){
-        this.content = content;
-    }
-
-    getContent(){
-        return this.content;
-    }
 
     /**
-     * @TODO manipulate string for date
-     * @param {String} publishedAt 
+     * Descrição: Método para pegar this._urlImage
+     * 
+     * @return {this._urlImage}
      */
-    setPublishedAt(publishedAt){
-        this.publishedAt = publishedAt;
+    getUrlImage() {
+        return this._urlImage
     }
 
-    getPublishedAt(){
-        return this.publishedAt;
+
+    /**
+     * Descrição: Método para setar this._content
+     * 
+     * @param {String} content 
+     */
+    setContent(content) {
+        this._content = content
     }
 
-    setDescription(description){
-        this.description = description;
+
+    /**
+     * Descrição: Método para pegar this._content
+     * 
+     * @return {this._content}
+     */
+    getContent() {
+        return this._content
     }
 
-    getDescription(){
-        return this.description;
+    
+    /**
+     * Descrição: Método para setar this._publishedAt
+     * 
+     * @param {Date} publishedAt 
+     */
+    setPublishedAt(publishedAt) {
+        this._publishedAt = publishedAt
+    }
+
+
+    /**
+     * Descrição: Método para pegar this._publishedAt
+     * 
+     * @return {this._publishedAt}
+     */
+    getPublishedAt() {
+        return this._publishedAt
+    }
+
+
+    /**
+     * Descrição: Método para setar this._description
+     * 
+     * @param {String} description 
+     */
+    setDescription(description) {
+        this._description = description
+    }
+
+
+    /**
+     * Descrição: Método para pegar this._description
+     * 
+     * @return {this._description}
+     */
+    getDescription() {
+        return this._description
     }
 }

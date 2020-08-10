@@ -1,6 +1,6 @@
 import USDateToBRDate from './USDateToBRDate.js'
 import ModalComponent from './ModalComponent.js'
-import NoticeController from '../controller/NoticeController.js'
+import BtnFavorite from './BtnFavorite.js'
 
 
 /**
@@ -20,13 +20,14 @@ import NoticeController from '../controller/NoticeController.js'
  */
 export default class CardComponent {
     constructor(news) {
+        this.classBtnFavorite = new BtnFavorite(news)
         const h5 = document.createElement('h5')
         const p = document.createElement('p')
         const createdAt = document.createElement('p')
         const publishedBy = document.createElement('p')
         const cardBody = document.createElement('div')
         const cardFooter = document.createElement('div')
-        const btnFavorite = document.createElement('button')
+        this.btnFavorite = this.classBtnFavorite.btn
         const img = document.createElement('img')
         const card = document.createElement('div')
         const btnOpen = document.createElement('button')
@@ -37,7 +38,7 @@ export default class CardComponent {
         cardBody.append(createdAt)
         cardBody.append(publishedBy)
         cardFooter.append(btnOpen)
-        cardFooter.append(btnFavorite)
+        cardFooter.append(this.btnFavorite)
         card.append(img)
         card.append(cardBody)
         card.append(cardFooter)
@@ -48,9 +49,9 @@ export default class CardComponent {
         p.classList.add("card-text")
         p.innerHTML = news.getDescription();
 
-        createdAt.innerHTML = `<small class="text-muted">Fonte: ${news.getSource()}</small>`
+        publishedBy.innerHTML = `<small class="text-muted">Fonte: ${news.getSource()}</small>`
         let uSDateToBRDate = new USDateToBRDate(news.getPublishedAt())
-        publishedBy.innerHTML = `<small class="text-muted">Publicação: ${uSDateToBRDate.date}</small>`
+        createdAt.innerHTML = `<small class="text-muted">Publicação: ${uSDateToBRDate.date}</small>`
 
         btnOpen.type = "button"
         btnOpen.classList.add("btn")
@@ -63,21 +64,11 @@ export default class CardComponent {
             var modalComponent = new ModalComponent(news)
             modalComponent.open()
         })
+
+        this.btnFavorite = this.classBtnFavorite.initBtnToSave()
+
         cardBody.classList.add("card-body")
         cardFooter.classList.add("card-footer")
-
-        btnFavorite.innerHTML = "Ler Depois <i class='fa fa-star-o'></i>"
-        btnFavorite.classList.add("btn")
-        btnFavorite.classList.add("btn-light")
-        btnFavorite.classList.add("btn-sm")
-        btnFavorite.classList.add("ml-2")
-        btnFavorite.classList.add("mb-1")
-        btnFavorite.addEventListener('click', () => {
-            btnFavorite.innerHTML = "Favorita <i class='fa fa-check-circle-o'></i>"
-            btnFavorite.style.color = "green"
-            const noticeController = new NoticeController(news)
-            noticeController.sendNoticeToModel(news)
-        })
 
         img.classList.add("card-img-top")
         img.src = news.getUrlImage();

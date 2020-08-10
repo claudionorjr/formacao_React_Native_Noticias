@@ -43,11 +43,9 @@ export default class NoticeViewController {
         const select = document.getElementById("select-news");
         
         btnFavorites.addEventListener('click', () =>{
-            console.log("aqui")
             var cardsArea = this.setCardsArea()
             cardsArea.innerHTML = ""
             form.style.display = "none";
-            console.log("ola")
             this.addAllFovoretiNews()
         })
         btnHome.addEventListener('click', () =>{

@@ -2,46 +2,82 @@
  * Classe serve como modelo para a consulta na API
  * 
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
- * @since 1.0.0
+ *
+ * @version 2
  */
-export class EndPoint{
-
-    constructor(){
-        this.functionEndPoint = 'top-headlines';
-        this.country;
-        this.query = 'country=';
+export class EndPoint {
+    constructor() {
+        this._functionEndPoint = 'top-headlines';
+        this._country;
+        this._query = 'country=';
     }
 
+
+    /**
+     * Descrição: Método para setar this._functionEndPoint
+     * 
+     * @param {String} functionEndPoint 
+     */
     setFuntion(functionEndPoint) {
         if(functionEndPoint != undefined || functionEndPoint != null || functionEndPoint != ''){
-            this.functionEndPoint = functionEndPoint;
+            this._functionEndPoint = functionEndPoint;
         }else{
-            console.log("Funcao do endPoint invalida")
+            console.log("Invalid functionEndPoint!")
         }
     }
 
-    getFunction(){
-        return this.functionEndPoint;
+
+    /**
+     * Descrição: Método para pegar this._functionEndPoint
+     * 
+     * @return {this._functionEndPoint}
+     */
+    getFunction() {
+        return this._functionEndPoint;
     }
 
-    setQuery(query){
-        this.query = query;
+
+    /**
+     * Descrição: Método para setar this._query
+     * 
+     * @param {String} query 
+     */
+    setQuery(query) {
+        this._query = query;
     }
 
-    getQuery(){
-        if(this.functionEndPoint === "top-headlines"){
-            return this.query + this.country;
+
+    /**
+     * Descrição: Método para pegar this._query
+     * 
+     * @return {this._query}
+     */
+    getQuery() {
+        if(this._functionEndPoint === "top-headlines"){
+            return this._query + this._country;
         }else{
-            return this.query
+            return this._query
         }
         
     }
 
-    setCountry(country){
-        this.country = country;
+
+    /**
+     * Descrição: Método para setar this._country
+     * 
+     * @param {String} country 
+     */
+    setCountry(country) {
+        this._country = country;
     }
 
-    getCountry(){
-        return this.country;
+
+    /**
+     * Descrição: Método para pegar this._country
+     * 
+     * @return {this._country}
+     */
+    getCountry() {
+        return this._country;
     }
 }
