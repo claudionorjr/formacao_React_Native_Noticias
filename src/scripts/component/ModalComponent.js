@@ -2,55 +2,98 @@
  * Descrição: Constroi um ModalComponent!
  * OBS: Precisa de bootstrap 4 para renderizar o Modal!
  * 
- * @version 1.0.0
+ * @version 2.0.0
  * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  * 
- * @param {String} h5Value
- * @param {String} content
+ * @param {News} news
  * 
- * @returns {HTMLDivElement} this.modal //modal é acessado para instanciar um novo modal
+ * @returns {HTMLDivElement} this.modal
  */
 export default class ModalComponent {
     constructor(news) {
-        const h5 = document.createElement('h5')
-        const modalHeader = document.createElement('div')
-        const modalBody = document.createElement('div')
-        const p = document.createElement('p')
-        const modalFooter = document.createElement('div')
-        const btnClose = document.createElement('button')
-        const modalContent = document.createElement('div')
-        const ModalDialog = document.createElement('div')
-        this.modal = document.createElement('div')
+        let title = React.createElement('h5', 
+            {
+                key: Math.random(),
+                className : 'modal-title'
+            },
+            news.getTitle()
+        )
 
-        modalHeader.append(h5)
-        modalBody.append(p)
-        modalFooter.append(btnClose)
-        modalContent.append(modalHeader)
-        modalContent.append(modalBody)
-        modalContent.append(modalFooter)
-        ModalDialog.append(modalContent)
-        this.modal.append(ModalDialog)
+        let modalHeader = React.createElement('div',
+            {
+                key: Math.random(),
+                className: 'modal-header'
+            },
+            title
+        )
 
-        h5.classList.add("modal-title")
-        h5.innerHTML = news.getTitle()
-        p.innerHTML = news.getContent()
-        modalHeader.classList.add("modal-header")
-        modalBody.classList.add("modal-body")
-        modalFooter.classList.add("modal-footer")
-        modalContent.classList.add("modal-content")
-        ModalDialog.classList.add("modal-dialog")
-        btnClose.innerHTML = "Close <i class='fa fa-close'></i>"
-        btnClose.classList.add("btn")
-        btnClose.classList.add("btn-secondary")
-        btnClose.classList.add("btn-sm")
-        btnClose.addEventListener('click', () => {
-            this.close()
-        })
-        this.modal.classList.add("modal")
-        this.modal.classList.add("fade")
-        this.modal.id = "myModal"
-        this.modal.tabIndex = "-1"
-        document.body.append(this.modal)
+        let textModalBody = React.createElement('p',
+            {
+                key: Math.random()
+            },
+            news.getContent()
+        )
+
+        let modalBody = React.createElement('div',
+            {
+                key: Math.random(),
+                className: 'modal-body'
+            },
+            textModalBody
+        )
+
+        let faClose = React.createElement('i',
+            { 
+                key: Math.random(),
+                className : 'fa fa-close'
+            }, 
+            null
+        )
+        
+        let btnClose = React.createElement('button',
+            { 
+                key: Math.random(),
+                className : 'btn btn-secondary btn-sm',
+                onClick: () => this.close()
+            },
+            ['Close ', faClose]
+        )
+
+        let modalFooter = React.createElement('div',
+            {
+                key: Math.random(),
+                className: 'modal-footer'
+            },
+            btnClose
+        )
+
+        let modalContent = React.createElement('div',
+            {
+                key: Math.random(),
+                className: 'modal-content'
+            },
+            [modalHeader, modalBody, modalFooter]
+        )
+
+        let ModalDialog = React.createElement('div',
+            {
+                key: Math.random(),
+                className: 'modal-dialog'
+            },
+            modalContent
+        )
+
+        this.modal = React.createElement('div',
+            {
+                key: Math.random(),
+                className: 'modal fade',
+                id: 'myModal',
+                style: {'tabIndex': '-1'}
+            },
+            ModalDialog
+        )
+        let modalArea = document.getElementById('modalArea')
+        ReactDOM.render(this.modal, modalArea)
     }
 
 
@@ -58,7 +101,8 @@ export default class ModalComponent {
      * Descrição: Método para abrir o Modal
      */
     open() {
-        new BSN.Modal(this.modal, {
+        let modal = document.getElementById('myModal')
+        new BSN.Modal(modal, {
             backdrop: 'static'
           }).toggle()
     }
@@ -68,7 +112,8 @@ export default class ModalComponent {
      * Descrição: Método para fechar o Modal
      */
     close() {
-        new BSN.Modal(this.modal, {
+        let modal = document.getElementById('myModal')
+        new BSN.Modal(modal, {
             backdrop: 'static'
           }).hide()
     }
