@@ -3,9 +3,9 @@
  * 
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
  *
- * @version 2
+ * @version 3
  */
-export class News {
+export default class News {
     constructor() {
         this._source
         this._title
@@ -16,7 +16,6 @@ export class News {
         this._description
     }
 
-
     /**
      * Descrição: Método para setar this._source
      * 
@@ -25,7 +24,6 @@ export class News {
     setSource(source) {
         this._source = source
     }
-
 
     /**
      * Descrição: Método para pegar this._source
@@ -36,7 +34,6 @@ export class News {
         return this._source
     }
 
-
     /**
      * Descrição: Método para setar this._title
      * 
@@ -45,7 +42,6 @@ export class News {
     setTitle(title) {
         this._title = title
     }
-
 
     /**
      * Descrição: Método para pegar this._title
@@ -56,7 +52,6 @@ export class News {
         return this._title
     }
 
-
     /**
      * Descrição: Método para setar this._url
      * 
@@ -65,7 +60,6 @@ export class News {
     setUrl(url) {
         this._url = url
     }
-
 
     /**
      * Descrição: Método para pegar this._url
@@ -76,20 +70,14 @@ export class News {
         return this._url
     }
 
-
     /**
      * Descrição: Método para setar this._urlImage
      * 
      * @param {Path} urlImage 
      */
     setUrlImage(urlImage) {
-        if (urlImage === null) {
-            this._urlImage = "src/images/error-404-1429x750.png"
-        } else {
-            this._urlImage = urlImage
-        }
+        urlImage === null ? this._urlImage = "src/images/error-404-1429x750.png" : this._urlImage = urlImage
     }
-
 
     /**
      * Descrição: Método para pegar this._urlImage
@@ -100,7 +88,6 @@ export class News {
         return this._urlImage
     }
 
-
     /**
      * Descrição: Método para setar this._content
      * 
@@ -110,7 +97,6 @@ export class News {
         this._content = content
     }
 
-
     /**
      * Descrição: Método para pegar this._content
      * 
@@ -119,7 +105,6 @@ export class News {
     getContent() {
         return this._content
     }
-
     
     /**
      * Descrição: Método para setar this._publishedAt
@@ -130,7 +115,6 @@ export class News {
         this._publishedAt = publishedAt
     }
 
-
     /**
      * Descrição: Método para pegar this._publishedAt
      * 
@@ -140,7 +124,6 @@ export class News {
         return this._publishedAt
     }
 
-
     /**
      * Descrição: Método para setar this._description
      * 
@@ -149,7 +132,6 @@ export class News {
     setDescription(description) {
         this._description = description
     }
-
 
     /**
      * Descrição: Método para pegar this._description

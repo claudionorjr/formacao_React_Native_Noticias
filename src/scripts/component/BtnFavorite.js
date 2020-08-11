@@ -1,28 +1,39 @@
 import NoticeController from '../controller/NoticeController.js'
 
 
+/**
+ * Descrição: Constroi um button component!
+ * OBS: Precisa de bootstrap 4 para renderizar o button!
+ * 
+ * @version 1.0.0
+ * @author Claudionor Junior <claudionor.junior1994@gmail.com>
+ * 
+ * @param {NewsModel} news
+ */
 export default class BtnFavorite {
     constructor(news) {
         this.news = news
     }
 
-
+    /**
+     * Descrição: Método usado em 'buttons' para acionar a função de 'save'
+     */
     initBtnToSave() {
-        var fa = React.createElement('i',
+        let fa = React.createElement('i',
             { 
                 key: 'toSave',
                 className : 'fa fa-star-o',
                 color: 'black'
             }, null)
 
-        var faCheck = React.createElement('i',
+        let faCheck = React.createElement('i',
             { 
                 key: 'onSave',
                 className : 'fa fa-check-circle-o',
                 color: 'green'
             }, null)
 
-        this.btn = React.createElement('button',
+        let btn = React.createElement('button',
             {
                 key: 'save',
                 className:'btn btn-light btn-sm ml-2 mb-1',
@@ -31,28 +42,30 @@ export default class BtnFavorite {
                     const noticeController = new NoticeController(this.news)
                     noticeController.sendNoticeToModel(this.news)
                 }
-            },['Ler Depois ' , fa])
+            },['Ler Depois ', fa])
 
-        return this.btn
+        return btn
     }
 
-
+    /**
+     * Descrição: Método usado em 'buttons' para acionar a função de 'delete'
+     */
     initBtnToDelete() {
-        var fa = React.createElement('i',
+        let fa = React.createElement('i',
             { 
                 key: 'toDelete',
                 className : 'fa fa-trash',
                 color: 'red'
             }, null)
 
-        var faCheck = React.createElement('i',
+        let faCheck = React.createElement('i',
             { 
                 key: 'onDelete',
                 className : 'fa fa-check-circle-o',
                 color: 'red'
             }, null)
 
-        this.btn = React.createElement('button',
+        let btn = React.createElement('button',
         {
             key: 'delete',
             className:'btn btn-light btn-sm ml-2 mb-1',
@@ -63,6 +76,6 @@ export default class BtnFavorite {
             }
         },['Remover Favorito ', fa])
 
-        return this.btn
+        return btn
     }
 }

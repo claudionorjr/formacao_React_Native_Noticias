@@ -8,7 +8,6 @@
  */
 export default class Database {
 
-
     /**
      * Descrição: Método retorna por callback um objeto 'indexedDB'.
      * 

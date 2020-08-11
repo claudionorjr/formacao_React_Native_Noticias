@@ -7,78 +7,116 @@ import BtnFavorite from './BtnFavorite.js'
  * Descrição: Constroi um card component!
  * OBS: Precisa de bootstrap 4 para renderizar o card!
  * 
- * @version 1.0.0
+ * @version 2.0.0
  * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  * 
- * @param {String} h5Value
- * @param {String} pValue
- * @param {URL} imgValue //Image URL
- * @param {Date} publishedAt
- * @param {String} name
- * 
+ * @param {NewsModel} news
+ * @param {Boolean} toSave
+ * @param {Boolean} toDelete
  * @returns {HTMLDivElement} this.col //col é acessado para instanciar um novo card
  */
 export default class CardComponent {
-    constructor(news) {
-        const h5 = document.createElement('h5')
-        const p = document.createElement('p')
-        const createdAt = document.createElement('p')
-        const publishedBy = document.createElement('p')
-        const cardBody = document.createElement('div')
-        const cardFooter = document.createElement('div')
-        this.btnContainer = document.createElement('div')
-        const img = document.createElement('img')
-        const card = document.createElement('div')
-        const btnOpen = document.createElement('button')
-        this.col = document.createElement('div')
+    constructor(news, toSave, toDelete) {
+        toSave == true ? this.btnFavorite = new BtnFavorite(news).initBtnToSave() : null
+        toDelete == true ? this.btnFavorite = new BtnFavorite(news).initBtnToDelete() : null
 
-        cardBody.append(h5)
-        cardBody.append(p)
-        cardBody.append(createdAt)
-        cardBody.append(publishedBy)
-        cardFooter.append(btnOpen)
-        cardFooter.append(this.btnContainer)
-        card.append(img)
-        card.append(cardBody)
-        card.append(cardFooter)
-        this.col.append(card)
-
-        h5.classList.add("card-title")
-        h5.innerHTML = news.getTitle();
-        p.classList.add("card-text")
-        p.innerHTML = news.getDescription();
-
-        publishedBy.innerHTML = `<small class="text-muted">Fonte: ${news.getSource()}</small>`
         let uSDateToBRDate = new USDateToBRDate(news.getPublishedAt())
-        createdAt.innerHTML = `<small class="text-muted">Publicação: ${uSDateToBRDate.date}</small>`
 
-        btnOpen.type = "button"
-        btnOpen.classList.add("btn")
-        btnOpen.classList.add("btn-info")
-        btnOpen.innerHTML = "Ver Mais <i class='fa fa-plus'></i>"
-        btnOpen.classList.add("btn-sm")
-        btnOpen.classList.add("ml-2")
-        btnOpen.classList.add("mb-1")
-        btnOpen.addEventListener('click', () => {
-            var modalComponent = new ModalComponent(news)
-            modalComponent.open()
-        })
+        let publishedBy = React.createElement('p',
+            {
+                key: Math.random(),
+                className : 'text-muted'
+            },
+            ['Fonte: ', news.getSource()]
+        )
 
-        this.btnFavorite = new BtnFavorite(news).initBtnToSave()
-        ReactDOM.render(this.btnFavorite, this.btnContainer)
+        let createdAt = React.createElement('p',
+            {
+                key: Math.random(),
+                className : 'text-muted'
+            },
+            'Publicação: '+ uSDateToBRDate.date
+        )
 
-        cardBody.classList.add("card-body")
-        cardFooter.classList.add("card-footer")
+        let cardContent = React.createElement('p',
+            {
+                key: Math.random(),
+                className: 'card-text'
+            },
+            news.getDescription()
+        )
 
-        img.classList.add("card-img-top")
-        img.src = news.getUrlImage();
-        img.style.maxHeight = "200px"
-        img.style.width = "auto"
+        let title = React.createElement('h5', 
+            {
+                key: Math.random()
+            },
+            news.getTitle()
+        )
 
-        card.classList.add("card")
-        card.style.minHeight = "400px"
+        let cardBody = React.createElement('div',
+            { 
+                key: Math.random(),
+                className : 'card-body'
+            },
+            [title, cardContent, createdAt, publishedBy]
+        )
 
-        this.col.classList.add("col")
-        this.col.classList.add("mb-4")
+        let faPlus = React.createElement('i',
+            { 
+                key: Math.random(),
+                className : 'fa fa-plus'
+            }, 
+            null
+        )
+        
+        let btnOpen = React.createElement('button',
+            { 
+                key: Math.random(),
+                className : 'btn btn-info btn-sm ml-2 mb-1',
+                onClick: () => {
+                    var modalComponent = new ModalComponent(news)
+                    modalComponent.open()
+                }
+            },
+            ['Ver Mais ', faPlus]
+        )
+        
+        let cardFooter = React.createElement('div',
+            { 
+                key: Math.random(),
+                className : 'card-footer'
+            },
+            [btnOpen, this.btnFavorite]
+        )
+
+        let img = React.createElement('img',
+            { 
+                key: Math.random(),
+                className : 'card-img-top',
+                style : {
+                    'maxHeight': '200px',
+                    'width': 'auto'
+                },
+                src: news.getUrlImage()
+            },
+            null
+        )
+
+        let allCardContent = React.createElement('div',
+            { 
+                key: Math.random(),
+                className : 'card',
+                style : {'minHeight': '400px'}
+            },
+            [img, cardBody, cardFooter]
+        )
+
+        this.card = React.createElement('div',
+            { 
+                key: Math.random(),
+                className : 'col mb-4'
+            },
+            allCardContent
+        )
     }
 }

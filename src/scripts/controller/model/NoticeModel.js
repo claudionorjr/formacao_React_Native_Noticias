@@ -1,6 +1,6 @@
 import Api from '../data/api.js'
 import Database from '../data/db.js'
-import { EndPoint } from './endPoint.js';
+import EndPoint from './EndPoint.js'
 
 
 /**
@@ -8,7 +8,7 @@ import { EndPoint } from './endPoint.js';
  * 
  * Descrição: Classe modelo para cada notícia!
  * 
- * @version 1.0.0
+ * @version 2.0.0
  * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  * 
  * @see https://www.fabricadecodigo.com/usando-indexeddb-em-apps-web/ //caso de dúvidas com os métodos.
@@ -22,8 +22,8 @@ export default class NoticeModel {
      */
     async getJSON(endpoint) {
         var api = new Api()
-        let response = await api.init(endpoint);
-        const data = await response.json();
+        let response = await api.init(endpoint)
+        const data = await response.json()
         return data;
     }
 
@@ -44,15 +44,13 @@ export default class NoticeModel {
                 request.onerror = () => console.log(`Error in get All Tasks!`)
             })
         })
-        
     }
-
 
     /**
      * Descrição: Cria no indexedDB um notícia favoritada pelo usuário.
      * @param {News} news - Class Modelo de noticias
      */
-    create(news){
+    create(news) {
         var database = new Database()
         database.open((db) => {
             var transaction = db.transaction('noticesDB', "readwrite")
@@ -65,7 +63,6 @@ export default class NoticeModel {
             add.onerror = () => {}
         })
     }
-
 
     /**
      * Descrição: Recebe um valor unico do 'title' e enviar o 'id' para deletar.
@@ -89,7 +86,6 @@ export default class NoticeModel {
             request.onerror = () => console.log(`Error to get and Delete!`)
         })
     }
-
     
     /**
      * Descrição: Recebe um 'id' que será deletado no indexedDB
