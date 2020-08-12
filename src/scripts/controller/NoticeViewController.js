@@ -20,7 +20,6 @@ export default class NoticeViewController {
         this.endpoint.setCountry("br")
         this.addAllNotices(this.endpoint)
         this.setFavoritiesInDisplay()
-        this.selected
     }
 
     /**

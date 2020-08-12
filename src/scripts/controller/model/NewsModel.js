@@ -6,16 +6,6 @@
  * @version 3
  */
 export default class News {
-    constructor() {
-        this._source
-        this._title
-        this._url
-        this._urlImage
-        this._content
-        this._publishedAt
-        this._description
-    }
-
     /**
      * Descrição: Método para setar this._source
      * 

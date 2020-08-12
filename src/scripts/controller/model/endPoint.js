@@ -8,7 +8,6 @@
 export default class EndPoint {
     constructor() {
         this._functionEndPoint = 'top-headlines'
-        this._country
         this._query = 'country='
     }
 
